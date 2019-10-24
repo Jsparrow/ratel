@@ -9,14 +9,14 @@ import org.nico.ratel.landlords.enums.ServerEventCode;
 
 public interface ServerEventListener {
 
-	public void call(ClientSide client, String data);
+	Map<ServerEventCode, ServerEventListener> LISTENER_MAP = new HashMap<>();
 
-	public final static Map<ServerEventCode, ServerEventListener> LISTENER_MAP = new HashMap<>();
-	
-	final static String LISTENER_PREFIX = "org.nico.ratel.landlords.server.event.ServerEventListener_";
-	
+	String LISTENER_PREFIX = "org.nico.ratel.landlords.server.event.ServerEventListener_";
+
+	void call(ClientSide client, String data);
+
 	@SuppressWarnings("unchecked")
-	public static ServerEventListener get(ServerEventCode code){
+	static ServerEventListener get(ServerEventCode code){
 		ServerEventListener listener = null;
 		try {
 			if(ServerEventListener.LISTENER_MAP.containsKey(code)){

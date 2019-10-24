@@ -12,7 +12,7 @@ public class ClientEventListener_CODE_GAME_OVER extends ClientEventListener{
 	@Override
 	public void call(Channel channel, String data) {
 		Map<String, Object> map = MapHelper.parser(data);
-		SimplePrinter.printNotice("\nPlayer " + map.get("winnerNickname") + "[" + map.get("winnerType") + "]" + " won the game");
+		SimplePrinter.printNotice(new StringBuilder().append("\nPlayer ").append(map.get("winnerNickname")).append("[").append(map.get("winnerType")).append("]").append(" won the game").toString());
 		SimplePrinter.printNotice("Game over, friendship first, competition second\n");
 	}
 

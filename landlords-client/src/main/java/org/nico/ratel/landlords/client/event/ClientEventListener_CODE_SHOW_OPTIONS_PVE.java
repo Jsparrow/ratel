@@ -19,7 +19,7 @@ public class ClientEventListener_CODE_SHOW_OPTIONS_PVE extends ClientEventListen
 		SimplePrinter.printNotice("Please enter the number of options (enter [BACK] return options list)");
 		String line = SimpleWriter.write("pve");
 		
-		if(line.equalsIgnoreCase("BACK")) {
+		if("BACK".equalsIgnoreCase(line)) {
 			get(ClientEventCode.CODE_SHOW_OPTIONS).call(channel, data);
 		}else {
 			int choose = OptionsUtils.getOptions(line);

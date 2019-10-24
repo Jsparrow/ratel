@@ -22,7 +22,7 @@ public class ClientEventListener_CODE_SHOW_OPTIONS_SETTING extends ClientEventLi
 		SimplePrinter.printNotice("Please enter the number of setting (enter [BACK] return options list)");
 		String line = SimpleWriter.write("setting");
 		
-		if(line.equalsIgnoreCase("BACK")) {
+		if("BACK".equalsIgnoreCase(line)) {
 			get(ClientEventCode.CODE_SHOW_OPTIONS).call(channel, data);
 		}else {
 			int choose = OptionsUtils.getOptions(line);

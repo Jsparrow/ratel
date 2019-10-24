@@ -42,7 +42,7 @@ public class ServerEventListener_CODE_GAME_STARTING implements ServerEventListen
 		room.setStatus(RoomStatus.STARTING);
 
 
-		for(ClientSide client: roomClientList) {
+		roomClientList.forEach(client -> {
 			client.setType(ClientType.PEASANT);
 
 			String result = MapHelper.newInstance()
@@ -62,7 +62,7 @@ public class ServerEventListener_CODE_GAME_STARTING implements ServerEventListen
 				}
 			}
 
-		}
+		});
 
 
 	}

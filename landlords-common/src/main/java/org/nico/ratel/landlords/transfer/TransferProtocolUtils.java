@@ -48,10 +48,14 @@ public class TransferProtocolUtils {
 		int end = -1;
 		
 		int index = bk.indexOf(PROTOCOL_HAED, 0);
-		if(index != -1) start = index + 1;
+		if(index != -1) {
+			start = index + 1;
+		}
 		
 		index = bk.indexOf(PROTOCOL_TAIL, 0);
-		if(index != -1) end = index;
+		if(index != -1) {
+			end = index;
+		}
 		
 		if(start != -1 && end != -1 && start > end) {
 			throw new LandlordException("Message format error, head and tail error.");

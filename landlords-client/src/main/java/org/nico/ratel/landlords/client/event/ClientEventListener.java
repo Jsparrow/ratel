@@ -14,22 +14,24 @@ import io.netty.channel.ChannelFuture;
 
 public abstract class ClientEventListener {
 
+	public static final Map<ClientEventCode, ClientEventListener> LISTENER_MAP = new HashMap<>();
+
+	private static final String LISTENER_PREFIX = "org.nico.ratel.landlords.client.event.ClientEventListener_";
+
+	protected static List<Poker> lastPokers = null;
+
+	protected static String lastSellClientNickname = null;
+
+	protected static String lastSellClientType = null;
+
 	public abstract void call(Channel channel, String data);
 
-	public final static Map<ClientEventCode, ClientEventListener> LISTENER_MAP = new HashMap<>();
-	
-	private final static String LISTENER_PREFIX = "org.nico.ratel.landlords.client.event.ClientEventListener_";
-	
-	protected static List<Poker> lastPokers = null;
-	protected static String lastSellClientNickname = null;
-	protected static String lastSellClientType = null;
-	
 	protected static void initLastSellInfo() {
 		lastPokers = null;
 		lastSellClientNickname = null;
 		lastSellClientType = null;
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public static ClientEventListener get(ClientEventCode code){
 		ClientEventListener listener = null;
@@ -48,11 +50,11 @@ public abstract class ClientEventListener {
 		}
 		return listener;
 	}
-	
+
 	protected ChannelFuture pushToServer(Channel channel, ServerEventCode code, String datas){
 		return ChannelUtils.pushToServer(channel, code, datas);
 	}
-	
+
 	protected ChannelFuture pushToServer(Channel channel, ServerEventCode code){
 		return pushToServer(channel, code, null);
 	}

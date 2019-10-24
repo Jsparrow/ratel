@@ -21,12 +21,12 @@ public class ClientEventListener_CODE_SHOW_POKERS extends ClientEventListener{
 		lastSellClientNickname = (String) map.get("clientNickname");
 		lastSellClientType = (String) map.get("clientType");
 		
-		SimplePrinter.printNotice(lastSellClientNickname + "[" + lastSellClientType + "] played:");
+		SimplePrinter.printNotice(new StringBuilder().append(lastSellClientNickname).append("[").append(lastSellClientType).append("] played:").toString());
 		lastPokers = Noson.convert(map.get("pokers"), new NoType<List<Poker>>() {});
 		SimplePrinter.printPokers(lastPokers);
 		
 		if(map.containsKey("sellClinetNickname")) {
-			SimplePrinter.printNotice("Next player is " + map.get("sellClinetNickname") + ". Please wait for him to play his pokers.");
+			SimplePrinter.printNotice(new StringBuilder().append("Next player is ").append(map.get("sellClinetNickname")).append(". Please wait for him to play his pokers.").toString());
 		}
 	}
 

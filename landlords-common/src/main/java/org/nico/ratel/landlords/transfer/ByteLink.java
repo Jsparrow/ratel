@@ -57,6 +57,7 @@ public class ByteLink{
 			this.next = next;
 		}
 		
+		@Override
 		protected ByteNode clone(){
 			return new ByteNode(b, next);
 		}

@@ -31,10 +31,9 @@ public class SimpleRobotDecisionMakers extends AbstractRobotDecisionMakers{
 		}
 		
 		for(PokerSell sell: sells) {
-			if(sell.getSellType() == lastPokerSell.getSellType()) {
-				if(sell.getScore() > lastPokerSell.getScore() && sell.getSellPokers().size() == lastPokerSell.getSellPokers().size()) {
-					return sell;
-				}
+			boolean condition = sell.getSellType() == lastPokerSell.getSellType() && sell.getScore() > lastPokerSell.getScore() && sell.getSellPokers().size() == lastPokerSell.getSellPokers().size();
+			if(condition) {
+				return sell;
 			}
 		}
 		if(lastPokerSell.getSellType() != SellType.BOMB) {
@@ -44,12 +43,7 @@ public class SimpleRobotDecisionMakers extends AbstractRobotDecisionMakers{
 				}
 			}
 		}
-		for(PokerSell sell: sells) {
-			if(sell.getSellType() == SellType.KING_BOMB) {
-				return sell;
-			}
-		}
-		return null;
+		return sells.stream().filter(sell -> sell.getSellType() == SellType.KING_BOMB).findFirst().orElse(null);
 	}
 
 	@Override

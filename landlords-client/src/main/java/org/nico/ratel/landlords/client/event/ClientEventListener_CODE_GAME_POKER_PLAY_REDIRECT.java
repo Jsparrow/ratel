@@ -17,7 +17,7 @@ public class ClientEventListener_CODE_GAME_POKER_PLAY_REDIRECT extends ClientEve
 
 	private static String[] choose = new String[]{"UP", "DOWN"};
 	
-	private static String format = "\n[%-4s] %-" + NICKNAME_MAX_LENGTH + "s  surplus %-2s [%-8s]";
+	private static String format = new StringBuilder().append("\n[%-4s] %-").append(NICKNAME_MAX_LENGTH).append("s  surplus %-2s [%-8s]").toString();
 	
 	@SuppressWarnings("unchecked")
 	@Override
@@ -42,7 +42,7 @@ public class ClientEventListener_CODE_GAME_POKER_PLAY_REDIRECT extends ClientEve
 		if(sellClientId == SimpleClient.id) {
 			get(ClientEventCode.CODE_GAME_POKER_PLAY).call(channel, data);
 		}else {
-			SimplePrinter.printNotice("Next player is " + map.get("sellClinetNickname") + ". Please wait for him to play his cards.");
+			SimplePrinter.printNotice(new StringBuilder().append("Next player is ").append(map.get("sellClinetNickname")).append(". Please wait for him to play his cards.").toString());
 		}
 	}
 
