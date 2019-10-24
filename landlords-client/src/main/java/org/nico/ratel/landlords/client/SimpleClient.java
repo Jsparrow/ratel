@@ -26,12 +26,12 @@ public class SimpleClient {
 
 	public static void main(String[] args) throws InterruptedException, IOException {
 		if(args != null && args.length > 0) {
-			for(int index = 0; index < args.length; index = index + 2) {
+			for(int index = 0; index < args.length; index += 2) {
 				if(index + 1 < args.length) {
-					if(args[index].equalsIgnoreCase("-p") || args[index].equalsIgnoreCase("-port")) {
+					if("-p".equalsIgnoreCase(args[index]) || "-port".equalsIgnoreCase(args[index])) {
 						port = Integer.valueOf(args[index + 1]);
 					}
-					if(args[index].equalsIgnoreCase("-h") || args[index].equalsIgnoreCase("-host")) {
+					if("-h".equalsIgnoreCase(args[index]) || "-host".equalsIgnoreCase(args[index])) {
 						serverAddress = args[index + 1];
 					}
 				}
@@ -43,7 +43,7 @@ public class SimpleClient {
 			List<String> serverAddressList = Noson.convert(serverInfo, new NoType<List<String>>() {});
 			SimplePrinter.printNotice("Please select a server:");
 			for(int i = 0; i < serverAddressList.size(); i++) {
-				SimplePrinter.printNotice((i+1) + ". " + serverAddressList.get(i));
+				SimplePrinter.printNotice(new StringBuilder().append(i+1).append(". ").append(serverAddressList.get(i)).toString());
 			}
 			int serverPick = Integer.parseInt(SimpleWriter.write("option"));
 			while(serverPick<1 || serverPick>serverAddressList.size()){
@@ -64,7 +64,7 @@ public class SimpleClient {
 					.group(group)
 					.channel(NioSocketChannel.class)
 					.handler(new DefaultChannelInitializer());
-			SimplePrinter.printNotice("Connecting to " + serverAddress + ":" + port);
+			SimplePrinter.printNotice(new StringBuilder().append("Connecting to ").append(serverAddress).append(":").append(port).toString());
 			Channel channel = bootstrap.connect(serverAddress, port).sync().channel();
 			channel.closeFuture().sync();
 		} finally {

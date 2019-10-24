@@ -19,7 +19,7 @@ public class ClientEventListener_CODE_SHOW_OPTIONS_PVP extends ClientEventListen
 		SimplePrinter.printNotice("Please enter the number of options (enter [BACK] return options list)");
 		String line = SimpleWriter.write("pvp");
 		
-		if(line.equalsIgnoreCase("BACK")) {
+		if("BACK".equalsIgnoreCase(line)) {
 			get(ClientEventCode.CODE_SHOW_OPTIONS).call(channel, data);
 		}else {
 			int choose = OptionsUtils.getOptions(line);
@@ -32,7 +32,7 @@ public class ClientEventListener_CODE_SHOW_OPTIONS_PVP extends ClientEventListen
 				SimplePrinter.printNotice("Please enter the room id you want to join (enter [BACK] return options list)");
 				line = SimpleWriter.write("roomid");
 				
-				if(line.equalsIgnoreCase("BACK")) {
+				if("BACK".equalsIgnoreCase(line)) {
 					call(channel, data);
 				}else {
 					int option = OptionsUtils.getOptions(line);

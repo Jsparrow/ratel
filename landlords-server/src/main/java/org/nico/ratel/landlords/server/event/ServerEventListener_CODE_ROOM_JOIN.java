@@ -61,9 +61,7 @@ public class ServerEventListener_CODE_ROOM_JOIN implements ServerEventListener{
 							.put("roomOwner", room.getRoomOwner())
 							.put("roomClientCount", room.getClientSideList().size())
 							.json();
-					for(ClientSide client: roomClientMap.values()) {
-						ChannelUtils.pushToClient(client.getChannel(), ClientEventCode.CODE_ROOM_JOIN_SUCCESS, result);
-					}
+					roomClientMap.values().forEach(client -> ChannelUtils.pushToClient(client.getChannel(), ClientEventCode.CODE_ROOM_JOIN_SUCCESS, result));
 				}
 			}
 

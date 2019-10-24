@@ -30,7 +30,7 @@ public class RobotEventListener_CODE_GAME_POKER_PLAY implements RobotEventListen
 			}
 			
 			if(pokerSell != null && lastPokerSell != null) {
-				SimplePrinter.serverLog("Robot monitoring[room:" + room.getId() + "]");
+				SimplePrinter.serverLog(new StringBuilder().append("Robot monitoring[room:").append(room.getId()).append("]").toString());
 				SimplePrinter.serverLog("last  sell  -> " + lastPokerSell.toString());
 				SimplePrinter.serverLog("robot sell  -> " + pokerSell.toString());
 				SimplePrinter.serverLog("robot poker -> " + PokerHelper.textOnlyNoType(robot.getPokers()));

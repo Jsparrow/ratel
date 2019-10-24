@@ -11,7 +11,7 @@ import org.nico.ratel.landlords.helper.PokerHelper;
 
 public class SimplePrinter {
 
-	private final static SimpleDateFormat FORMAT = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss");
+	private static final SimpleDateFormat FORMAT = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss");
 	public static int pokerDisplayFormat = 0;
 	
 	public static void printPokers(List<Poker> pokers) {
@@ -24,14 +24,14 @@ public class SimplePrinter {
 	
 	public static void printNotice(String msgKey, String locale) {
 		//TODO : read locale
-		Map<String,Map<String, String>> map = new HashMap<String,Map<String, String>>();
-		map.put("english", new HashMap<String, String>());
+		Map<String,Map<String, String>> map = new HashMap<>();
+		map.put("english", new HashMap<>());
 		map.get("eng").put("caterpillar", "caterpillar's message!!");
 
 		System.out.println(map.get(locale).get(msgKey));
 	}
 
 	public static void serverLog(String msg) {
-		System.out.println(FORMAT.format(new Date()) + "-> " + msg);
+		System.out.println(new StringBuilder().append(FORMAT.format(new Date())).append("-> ").append(msg).toString());
 	}
 }

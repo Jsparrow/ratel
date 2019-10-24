@@ -56,7 +56,7 @@ public class PokerSell {
 
 	@Override
 	public String toString() {
-		return sellType + "\t| " + score + "\t|" + sellPokers;
+		return new StringBuilder().append(sellType).append("\t| ").append(score).append("\t|").append(sellPokers).toString();
 	}
 	
 }

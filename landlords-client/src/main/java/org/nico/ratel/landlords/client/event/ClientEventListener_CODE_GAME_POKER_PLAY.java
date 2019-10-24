@@ -33,16 +33,15 @@ public class ClientEventListener_CODE_GAME_POKER_PLAY extends ClientEventListene
 			SimplePrinter.printNotice("Invalid enter");
 			call(channel, data);
 		}else{
-			if(line.equalsIgnoreCase("PASS")) {
+			if("PASS".equalsIgnoreCase(line)) {
 				pushToServer(channel, ServerEventCode.CODE_GAME_POKER_PLAY_PASS);
-			}else if(line.equalsIgnoreCase("EXIT")){
+			}else if("EXIT".equalsIgnoreCase(line)){
 				pushToServer(channel, ServerEventCode.CODE_CLIENT_EXIT);
 			}else {
 				String[] strs = line.split(" ");
 				List<Character> options = new ArrayList<>();
 				boolean access = true;
-				for(int index = 0; index < strs.length; index ++){
-					String str = strs[index];
+				for (String str : strs) {
 					for(char c: str.toCharArray()) {
 						if(c == ' ' || c == '\t') {
 						}else {
@@ -61,7 +60,7 @@ public class ClientEventListener_CODE_GAME_POKER_PLAY extends ClientEventListene
 					SimplePrinter.printNotice("Invalid enter");
 					
 					if(lastPokers != null) {
-						SimplePrinter.printNotice(lastSellClientNickname + "[" + lastSellClientType + "] played:");
+						SimplePrinter.printNotice(new StringBuilder().append(lastSellClientNickname).append("[").append(lastSellClientType).append("] played:").toString());
 						SimplePrinter.printPokers(lastPokers);
 					}
 					

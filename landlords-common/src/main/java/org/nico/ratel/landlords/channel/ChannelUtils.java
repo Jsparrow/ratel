@@ -15,19 +15,20 @@ public class ChannelUtils {
 	}
 	
 	public static void pushToClient(Channel channel, ClientEventCode code, String data, String info) {
-		if(channel != null) {
-			ClientTransferData.ClientTransferDataProtoc.Builder clientTransferData = ClientTransferData.ClientTransferDataProtoc.newBuilder();
-			if(code != null) {
-				clientTransferData.setCode(code.toString());
-			}
-			if(data != null) {
-				clientTransferData.setData(data);
-			}
-			if(info != null) {
-				clientTransferData.setInfo(info);
-			}
-			channel.writeAndFlush(clientTransferData);
+		if (channel == null) {
+			return;
 		}
+		ClientTransferData.ClientTransferDataProtoc.Builder clientTransferData = ClientTransferData.ClientTransferDataProtoc.newBuilder();
+		if(code != null) {
+			clientTransferData.setCode(code.toString());
+		}
+		if(data != null) {
+			clientTransferData.setData(data);
+		}
+		if(info != null) {
+			clientTransferData.setInfo(info);
+		}
+		channel.writeAndFlush(clientTransferData);
 	}
 	
 	public static ChannelFuture pushToServer(Channel channel, ServerEventCode code, String data) {

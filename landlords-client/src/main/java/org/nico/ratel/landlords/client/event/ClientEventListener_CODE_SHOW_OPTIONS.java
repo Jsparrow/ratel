@@ -18,7 +18,7 @@ public class ClientEventListener_CODE_SHOW_OPTIONS extends ClientEventListener{
 		SimplePrinter.printNotice("Please enter the number of options (enter [EXIT] log out)");
 		String line = SimpleWriter.write("options");
 		
-		if(line.equalsIgnoreCase("EXIT")) {
+		if("EXIT".equalsIgnoreCase(line)) {
 			System.exit(0);
 		}else {
 			int choose = OptionsUtils.getOptions(line);

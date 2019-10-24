@@ -18,10 +18,9 @@ public class SimpleServer {
 
 	public static void main(String[] args) throws InterruptedException {
 
-		if(args != null && args.length > 1) {
-			if(args[0].equalsIgnoreCase("-p") || args[0].equalsIgnoreCase("-port")) {
-				ServerContains.port = Integer.valueOf(args[1]);
-			}
+		boolean condition = args != null && args.length > 1 && ("-p".equalsIgnoreCase(args[0]) || "-port".equalsIgnoreCase(args[0]));
+		if(condition) {
+			ServerContains.port = Integer.valueOf(args[1]);
 		}
 
 		EventLoopGroup parentGroup = Epoll.isAvailable() ? new EpollEventLoopGroup() : new NioEventLoopGroup();

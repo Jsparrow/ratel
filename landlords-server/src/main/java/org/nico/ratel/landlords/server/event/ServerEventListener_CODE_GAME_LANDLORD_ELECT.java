@@ -32,7 +32,7 @@ public class ServerEventListener_CODE_GAME_LANDLORD_ELECT implements ServerEvent
 				room.setCurrentSellClient(currentClientId);
 				clientSide.setType(ClientType.LANDLORD);
 				
-				for(ClientSide client: room.getClientSideList()){
+				room.getClientSideList().forEach(client -> {
 					String result = MapHelper.newInstance()
 							.put("roomId", room.getId())
 							.put("roomOwner", room.getRoomOwner())
@@ -49,14 +49,10 @@ public class ServerEventListener_CODE_GAME_LANDLORD_ELECT implements ServerEvent
 							RobotEventListener.get(ClientEventCode.CODE_GAME_POKER_PLAY).call(client, result);
 						}
 					}
-				}
+				});
 			}else{
 				if(clientSide.getNext().getId() == room.getLandlordId()){
-					for(ClientSide client: room.getClientSideList()){
-						if(client.getRole() == ClientRole.PLAYER) {
-							ChannelUtils.pushToClient(client.getChannel(), ClientEventCode.CODE_GAME_LANDLORD_CYCLE, null);
-						}
-					}
+					room.getClientSideList().stream().filter(client -> client.getRole() == ClientRole.PLAYER).forEach(client -> ChannelUtils.pushToClient(client.getChannel(), ClientEventCode.CODE_GAME_LANDLORD_CYCLE, null));
 					ServerEventListener.get(ServerEventCode.CODE_GAME_STARTING).call(clientSide, null);
 				}else{
 					ClientSide turnClientSide = clientSide.getNext();
@@ -70,7 +66,7 @@ public class ServerEventListener_CODE_GAME_LANDLORD_ELECT implements ServerEvent
 							.put("nextClientId", turnClientSide.getId())
 							.json();
 					
-					for(ClientSide client: room.getClientSideList()) {
+					room.getClientSideList().forEach(client -> {
 						if(client.getRole() == ClientRole.PLAYER) {
 							ChannelUtils.pushToClient(client.getChannel(), ClientEventCode.CODE_GAME_LANDLORD_ELECT, result);
 						}else {
@@ -78,7 +74,7 @@ public class ServerEventListener_CODE_GAME_LANDLORD_ELECT implements ServerEvent
 								RobotEventListener.get(ClientEventCode.CODE_GAME_LANDLORD_ELECT).call(client, result);
 							}
 						}
-					}
+					});
 				}
 			}
 		}else {

@@ -10,7 +10,7 @@ public class SimpleWriter {
 	
 	public static String write(String message) {
 		System.out.println();
-		System.out.print("[ratel@" + message + "]$ ");
+		System.out.print(new StringBuilder().append("[ratel@").append(message).append("]$ ").toString());
 		try {
 			return reader.readLine();
 		} catch (IOException e) {

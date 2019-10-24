@@ -14,10 +14,11 @@ public class ClientEventListener_CODE_GAME_POKER_PLAY_MISMATCH extends ClientEve
 	public void call(Channel channel, String data) {
 		Map<String, Object> map = MapHelper.parser(data);
 		
-		SimplePrinter.printNotice("Your pokers' type is " + map.get("playType") + " (" + map.get("playCount") + ") but previous pokers' type is " + map.get("preType") + " (" + map.get("preCount") + "), mismatch !!");
+		SimplePrinter.printNotice(new StringBuilder().append("Your pokers' type is ").append(map.get("playType")).append(" (").append(map.get("playCount")).append(") but previous pokers' type is ").append(map.get("preType"))
+				.append(" (").append(map.get("preCount")).append("), mismatch !!").toString());
 		
 		if(lastPokers != null) {
-			SimplePrinter.printNotice(lastSellClientNickname + "[" + lastSellClientType + "] played:");
+			SimplePrinter.printNotice(new StringBuilder().append(lastSellClientNickname).append("[").append(lastSellClientType).append("] played:").toString());
 			SimplePrinter.printPokers(lastPokers);
 		}
 		

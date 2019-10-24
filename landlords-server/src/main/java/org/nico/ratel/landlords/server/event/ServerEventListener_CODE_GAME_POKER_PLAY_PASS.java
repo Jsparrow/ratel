@@ -22,7 +22,7 @@ public class ServerEventListener_CODE_GAME_POKER_PLAY_PASS implements ServerEven
 
 					room.setCurrentSellClient(turnClient.getId());
 
-					for(ClientSide client: room.getClientSideList()) {
+					room.getClientSideList().forEach(client -> {
 						String result = MapHelper.newInstance()
 								.put("clientId", clientSide.getId())
 								.put("clientNickname", clientSide.getNickname())
@@ -36,7 +36,7 @@ public class ServerEventListener_CODE_GAME_POKER_PLAY_PASS implements ServerEven
 								RobotEventListener.get(ClientEventCode.CODE_GAME_POKER_PLAY).call(turnClient, data);
 							}
 						}
-					}
+					});
 				}else {
 					ChannelUtils.pushToClient(clientSide.getChannel(), ClientEventCode.CODE_GAME_POKER_PLAY_CANT_PASS, null);
 				}

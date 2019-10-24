@@ -38,14 +38,15 @@ public class TransferHandler extends ChannelInboundHandlerAdapter{
 	
 	@Override
 	public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-		if(msg instanceof ServerTransferDataProtoc) {
-			ServerTransferDataProtoc serverTransferData = (ServerTransferDataProtoc) msg;
-			ServerEventCode code = ServerEventCode.valueOf(serverTransferData.getCode());
-			if(code != null && code != ServerEventCode.CODE_CLIENT_HEAD_BEAT) {
-				ClientSide client = ServerContains.CLIENT_SIDE_MAP.get(getId(ctx.channel()));
-				SimplePrinter.serverLog(client.getId() + " | " + client.getNickname() + " do:" + code.getMsg());
-				ServerEventListener.get(code).call(client, serverTransferData.getData());
-			}
+		if (!(msg instanceof ServerTransferDataProtoc)) {
+			return;
+		}
+		ServerTransferDataProtoc serverTransferData = (ServerTransferDataProtoc) msg;
+		ServerEventCode code = ServerEventCode.valueOf(serverTransferData.getCode());
+		if(code != null && code != ServerEventCode.CODE_CLIENT_HEAD_BEAT) {
+			ClientSide client = ServerContains.CLIENT_SIDE_MAP.get(getId(ctx.channel()));
+			SimplePrinter.serverLog(new StringBuilder().append(client.getId()).append(" | ").append(client.getNickname()).append(" do:").append(code.getMsg()).toString());
+			ServerEventListener.get(code).call(client, serverTransferData.getData());
 		}
 	}
 
@@ -88,9 +89,10 @@ public class TransferHandler extends ChannelInboundHandlerAdapter{
     private void clientOfflineEvent(Channel channel){
     	int clientId = getId(channel);
     	ClientSide client = ServerContains.CLIENT_SIDE_MAP.get(clientId);
-    	if(client != null) {
-			SimplePrinter.serverLog("Has client exit to the server：" + clientId + " | " + client.getNickname());
-			ServerEventListener.get(ServerEventCode.CODE_CLIENT_OFFLINE).call(client, null);
+    	if (client == null) {
+			return;
 		}
+		SimplePrinter.serverLog(new StringBuilder().append("Has client exit to the server：").append(clientId).append(" | ").append(client.getNickname()).toString());
+		ServerEventListener.get(ServerEventCode.CODE_CLIENT_OFFLINE).call(client, null);
     }
 }
